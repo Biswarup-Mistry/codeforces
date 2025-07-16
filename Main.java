@@ -1,70 +1,82 @@
-import java.util.Scanner;
-
+import java.util.*;
 
 public class Main {
-    public static void main(String args[]) {
-        ArrayHandler a = new ArrayHandler();
+    public static void main(String args[]){
+        twoArrays t=new twoArrays();
         try {
-            a.run();
+            t.run();
         } catch (Exception e) {
-            System.out.println("The Exception is :=> " + e);
+            System.out.println("The error is :-> "+e);
         }
     }
 }
 
-
-class ArrayHandler {
-    void run() {
-        Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt(); // number of test cases
-        int[][] arrayHolder = new int[2 * t][];
-
-        if (t >= 1 && t <= 10000) {
-            int n;
-            for (int i = 0; i < t; i++) {
-                n = sc.nextInt();
-                if (n >= 1 && n <= 100000) {
-                    int[] a1 = new int[n];
-                    int[] a2 = new int[n];
-                    for (int j = 0; j < n; j++) a1[j] = sc.nextInt();
-                    for (int j = 0; j < n; j++) a2[j] = sc.nextInt();
-                    arrayHolder[2 * i] = a1;
-                    arrayHolder[2 * i + 1] = a2;
+class twoArrays{
+    void run(){
+        Scanner sc=new Scanner(System.in);
+        int t=sc.nextInt();
+        int[] max=new int[2*t];
+        int[][] ah=new int[2*t][];
+        int max1=0;
+        int max2=0;
+        if (t>=1 && t<=Math.pow(10, 4)){
+            for (int i=0;i<t;i++){
+                int n=sc.nextInt();
+                int[] a1=new int[n];
+                int[] a2=new int[n];
+                if(n>=1 && n<=Math.pow(10, 5)){
+                    //for(int i=0;i<t;i++){ //taking inputs
+                    for(int j=0;j<n;j++){
+                        a1[j]=sc.nextInt();
+                    }
+                    for(int j=0;j<n;j++){
+                        a2[j]=sc.nextInt();
+                    }
+                    ah[2*i]=a1;
+                    ah[2*i+1]=a2;
+                    //}
                 }
             }
-        }
-
-        // Swap elements to ensure a1[j] >= a2[j]
-        int i = 0;
-        while (i < 2 * t) {
-            if (arrayHolder[i] != null && arrayHolder[i + 1] != null) {
-                for (int j = 0; j < arrayHolder[i].length; j++) {
-                    if (arrayHolder[i][j] < arrayHolder[i + 1][j]) {
-                        int a = arrayHolder[i][j];
-                        arrayHolder[i][j] = arrayHolder[i + 1][j];
-                        arrayHolder[i + 1][j] = a;
+            //swapping
+            for(int i=0;i<2*t;i+=2){
+                if(ah[i]!=null && ah[i+1]!=null){
+                    for(int j=0;j<ah[i].length;j++){
+                        if(ah[i][j]<ah[i+1][j]){
+                            int b=ah[i][j];
+                            ah[i][j]=ah[i+1][j];
+                            ah[i+1][j]=b;
+                        }
                     }
                 }
             }
-            i += 2;
-        }
-
-        // Find and print max for each pair
-        for (i = 0; i < 2 * t; i += 2) {
-            if (arrayHolder[i] != null && arrayHolder[i + 1] != null) {
-                int[] a1 = arrayHolder[i];
-                int[] a2 = arrayHolder[i + 1];
-                int max1 = Integer.MIN_VALUE;
-                int max2 = Integer.MIN_VALUE;
-                for (int j = 0; j < a1.length; j++) {
-                    if (a1[j] > max1) max1 = a1[j];
-                    if (a2[j] > max2) max2 = a2[j];
+            //finding maximum
+            for (int i=0;i<2*t;i+=2){
+                if (ah[i]!=null && ah[i+1]!=null){
+                    for (int j=0;j<ah[i].length;j++){
+                        if(ah[i][j]>max1){max1=ah[i][j];}
+                        if(ah[i+1][j]>max2){max2=ah[i+1][j];}
+                    }
                 }
-                System.out.println(max1 + max2);
+                max[i]=max1;
+                max[i+1]=max2;
+                max1=0;
+                max2=0;
+            }
+            //printing
+            for (int i=0;i<2*t;i+=2){
+                if(ah[i]!=null && ah[i+1]!=null){
+                    System.out.println(max[i]+max[i+1]);
+                    for (int j=0;j<ah[i].length;j++){
+                        System.out.print(ah[i][j]+" ");
+                    }
+                    System.out.println();
+                    for (int j=0;j<ah[i+1].length;j++){
+                        System.out.print(ah[i+1][j]+" ");
+                    }
+                    System.out.println();
+                }
             }
         }
-
         sc.close();
     }
 }
-
