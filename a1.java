@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class a1{
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Array a = new Array();
         a.run();
         //catch(Exception e){System.out.println("The Exception is : "+e);}
@@ -10,7 +10,7 @@ public class a1{
 }
 
 class Array {
-    public void run(){
+    public void run() {
         //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         //- - - - - - - - - - - - - - - [Taking inputs] - - - - - - - - - - - - - - - - 
         Scanner sc=new Scanner(System.in);
@@ -104,7 +104,6 @@ class Array {
                 Dron(a[i],b[i],D_a,D_b);
                 if(f_of(D_a)+f_of(D_b)>f_c){
                     f_c=f_of(D_a)+f_of(D_b);
-                    
                 }
                 else{
                     swap(a,b,i);
