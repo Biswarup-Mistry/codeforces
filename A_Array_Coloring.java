@@ -30,8 +30,7 @@ class RT{
         int hasEven=0;
         int hasOdd=0;
         for(int x: arr)if(x%2==0)hasEven++;else hasOdd++;
-        if(hasOdd%2==0 && hasEven%2==0) System.out.println("YES");
-        else if(hasOdd%2!=0)System.out.println("NO");
+        if(hasOdd%2!=0)System.out.println("NO");
         else System.out.println("YES");
     }
 }
